@@ -27,7 +27,7 @@ function submitData(data) {
     console.log(objectData)
 
     if (name === "") {
-        return alert('Name harus diisi!')
+        return alert('Nama harus diisi!')
     } else if (email === "") {
         return alert('Email harus diisi!')
     } else if (!validateEmail(email)) {
@@ -46,3 +46,4 @@ function submitData(data) {
     a.href = `mailto:${emailReceiver}?subject=${subject}&body=Halo nama saya ${name},\n${message}, silahkan kontak saya di nomor berikut : ${phone}`
     a.click()
 }
+

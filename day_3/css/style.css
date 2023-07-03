@@ -23,6 +23,7 @@ nav {
     padding: 0px 30px;
     display: flex;
     background: #282b3a;
+    border-bottom: 2px solid #ffd3cd;
     /* border: 1px solid white; */
 }
 
