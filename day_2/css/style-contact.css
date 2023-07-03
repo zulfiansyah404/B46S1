@@ -1,0 +1,62 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form-container div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-container div label {
+    font-size: medium;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: aliceblue;
+}
+
+.form-container div input, .form-container div textarea, .form-container div select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #18141c;
+    font: 15px 'Raleway', sans-serif;
+    font-weight: 600;
+    background: #201c2c;
+    color: rgb(202, 202, 202);
+}
+
+.form-container div input:focus, .form-container div textarea:focus, .form-container div select:focus {
+    outline: none;
+    border: 1px solid #6c00d8;
+}
+
+.form-container div textarea {
+    resize: none;
+    height: 100px;
+}
+
+.form-container button {
+    margin-top: 20px;
+    align-self: flex-end;
+
+}
+
+.btn-submit {
+    background-color: orangered;
+    color: white;
+    padding: 0.5em 2em;
+    border: none;
+    border-radius: 2em;
+    font: 15px 'Raleway', sans-serif;
+    font-weight: 700;
+}
+
+.btn-submit:hover {
+    cursor: pointer;
+    background-color: rgba(206, 55, 0, 0.989);
+    /* transisi */
+    transition: 0.5s;
+    color: #eae9e9;
+}
