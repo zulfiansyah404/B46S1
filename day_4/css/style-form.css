@@ -1,0 +1,118 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.form-container div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.form-container .date-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.check-container {
+    margin-top: 5px;
+}
+
+.check-container ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.check-container ul li {
+    list-style-type: none;
+    margin-bottom: 5px;
+    display: flex;
+    width: 47%;
+    flex-direction: row;
+}
+
+.check-container ul li label {
+    margin: auto 0px auto 10px;
+    color: #a5a5a5;
+}
+
+/* Buat */
+
+.date-container div {
+    width: 48%;
+}
+
+
+.form-container div label {
+    font-size: medium;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: aliceblue;
+}
+
+.form-container div input, .form-container div textarea, .form-container div select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #18141c;
+    font: 15px 'Raleway', sans-serif;
+    font-weight: 600;
+    background: #201c2c;
+    color: rgb(202, 202, 202);
+}
+
+.form-container div input:focus, .form-container div textarea:focus, .form-container div select:focus {
+    outline: none;
+    border: 1px solid #6c00d8;
+}
+
+.form-container div textarea {
+    resize: none;
+    height: 100px;
+}
+
+.form-container button {
+    margin-top: 20px;
+    align-self: flex-end;
+
+}
+
+.form-container div input[type="file"] {
+    padding: 5px 10px;
+}
+
+.form-container div input[type="file"]::-webkit-file-upload-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #18141c;
+    font: 15px 'Raleway', sans-serif;
+    font-weight: 600;
+    background: #282b3a;
+    color: rgb(202, 202, 202);
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+
+
+.btn-submit {
+    background-color: orangered;
+    color: white;
+    padding: 0.5em 2em;
+    border: none;
+    border-radius: 2em;
+    font: 15px 'Raleway', sans-serif;
+    font-weight: 700;
+}
+
+.btn-submit:hover {
+    cursor: pointer;
+    background-color: rgba(206, 55, 0, 0.989);
+    /* transisi */
+    transition: 0.5s;
+    color: #eae9e9;
+}

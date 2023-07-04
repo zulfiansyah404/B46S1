@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <title> DAY 4 | Project </title>
+        <link rel="icon" type="image/x-icon" href="img/logo.png" />
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/style-form.css"/>
+        <link rel="stylesheet" href="css/style-project.css"/>
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"/>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li>
+                    <img src="img/logo.png" alt="">
+                </li>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="project.html">Project</a>
+                </li>
+            </ul>
+            <div class="contact-me">
+                <a href="contact.html">Contact Me</a>
+            </div>
+        </nav>  
+        <div class="container">
+            <div class="header-container">
+                <div class="circle-red"></div>
+                <div class="circle-yellow"></div>
+                <div class="circle-green"></div>
+                <h4>Posting Blog</h4>
+            </div>
+            <div class="content">
+                <div class="article" >
+                    <h1>Add New Project</h1>
+                    <hr>
+                    
+                    <form class="form-container" onsubmit="addProject(event)">
+                        <div>
+                            <label for="name">Project Name</label>
+                            <input type="text" id="project-name" name="project-name" placeholder="Your project name...">
+                        </div>
+                        <!-- Membuat input start date dan end date dan kedua input tersebut bersebelahan -->
+                        <div class="date-container">
+                            <div>
+                                <label for="start-date">Start Date</label>
+                                <input type="date" id="start-date" name="start-date">
+                            </div>
+                            <div>
+                                <label for="end-date">End Date</label>
+                                <input type="date" id="end-date" name="end-date">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" placeholder="Write something..." style="height:200px"></textarea>
+                        </div>
+                        <div>
+                            <label for="tech">Technologies</label>
+                            <div class="check-container">
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" id="node-js" name="node-js" value="node-js">
+                                        <label for="node-js">Node JS</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="react-js" name="react-js" value="react-js">
+                                        <label for="react-js">React JS</label>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" id="java" name="java" value="java">
+                                        <label for="java">Java</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="golang" name="golang" value="golang">
+                                        <label for="golang">Go</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <label for="image">Image</label>
+                                <input type="file" id="image" name="image">
+                            </div>
+                        </div>  
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            
+            
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#26293b" fill-opacity="1" d="M0,224L48,192C96,160,192,96,288,101.3C384,107,480,181,576,208C672,235,768,213,864,192C960,171,1056,149,1152,170.7C1248,192,1344,256,1392,288L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg> 
+        <div class="projects">
+            <h1>My Project</h1>
+            <div class="list-project" id="list-project">
+                <div class="project">
+                    <div class="header-project-item">
+                        <div class="circle-red"></div>
+                        <div class="circle-yellow"></div>
+                        <div class="circle-green"></div>
+                    </div>
+                    <div class="blog-image">
+                        <img src="img/project.png" alt="">
+                    </div>
+                    <div class="project-items">
+                        <a href="project-detail.html"><h2>Project Tubes III STIMA</h2></a>
+                        
+                        <h3><div class="duration-label">Durasi : </div>1 bulan</h3>
+                        <div class="paragraph">
+                            <p>Project Tubes III STIMA Teknik Informatika ITB merupakan project yang dikerjakan oleh 3 orang mahasiswa Teknik Informatika ITB. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma.</p>
+                        </div>
+                        
+                        <div class="icons">
+                            <i class="fa-brands fa-node-js"></i>
+                            <i class="fa-brands fa-react"></i>
+                        </div>
+                        <div class="button-project">
+                            <button style="background:#fb4c33;"><a>Edit</a></button>
+                            <button style="background:rgba(255, 0, 0, 0.804);"><a>Delete</a></button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <script src="js/project.js"></script>
+        
+        
+    <body>
+</html>
+
