@@ -152,7 +152,7 @@ const addProject = (event) => {
         duration,
         description, 
         listIconTech,
-        href : '#',
+        href : 'project-detail.html',
         image
     }
 
