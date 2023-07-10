@@ -10,6 +10,7 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <nav>
@@ -17,17 +18,29 @@
                 <li>
                     <img src="img/logo.png" alt="">
                 </li>
-                <li>
+                <li class="collapse-item">
                     <a href="index.html">Home</a>
                 </li>
-                <li>
+                <li class="collapse-item">
                     <a href="project.html">Project</a>
                 </li>
             </ul>
-            <div class="contact-me">
+            <div class="nav-right collapse-item">
                 <a href="contact.html">Contact Me</a>
             </div>
+            <div class="nav-right" id="hamburger-btn">
+                <button onclick="openMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                
+            </div>
         </nav>  
+        <div class="hamburger-container" id="hamburger-container">
+            <a href="index.html">Home</a>
+            <a href="project.html">Project</a>
+            <a href="contact.html">Contact Me</a>
+        </div>
+
         <div class="container">
             <div class="header-container">
                 <div class="circle-red"></div>
@@ -64,6 +77,7 @@
             
             
         </div>
+        <script src="js/nav.js"></script>
     <body>
 </html>
 

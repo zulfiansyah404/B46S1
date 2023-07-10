@@ -7,7 +7,7 @@
 * {
     margin: 0px;
     padding: 0px;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 a {
@@ -54,16 +54,36 @@ nav ul li {
     margin: 0px 5px;
 }
 
-.contact-me {
+.nav-right {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-right: 30px;
     width: 100%;
+    
 }
 
-.contact-me a {
+#hamburger-btn {
+    display: none;
+}
+
+#hamburger-btn button {
+    border: none;
+    outline: none;
+    border-radius: 20%;
+    cursor: pointer;
+    color: white;
+    background: none;
+    font-size: large;
+}
+
+#hamburger-btn button:hover {
+    color: #c0c0c0;
+}
+
+
+
+.nav-right a {
     background-color: #fb4c33;
     width: 120px;
     height: 40px;
@@ -77,7 +97,7 @@ nav ul li {
     justify-content: center;
 }
 
-.contact-me a:hover {
+.nav-right a:hover {
     background-color: #e14c34;
     color: #e8e8e8;
     /* transisi */
@@ -208,6 +228,30 @@ hr {
     /* border: 2px solid #fafafa; */
 }
 
+.collapse-item {
+    display: flex;
+}
+
+.hamburger-container {
+    font-size: 25px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(34, 37, 50);
+}
+
+.hamburger-container a {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 0;
+    animation: fadeIn 1s ease-in-out;
+}
+
 .contact {
     /* border: 1px solid white; */
     border-radius: 5px;
@@ -233,12 +277,6 @@ hr {
     width: 100%;
 }
 
-.back-video {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-}
 
 .author{
     background: #18141c;
@@ -264,6 +302,8 @@ hr {
 .article p {
     margin-bottom: 20px;
     font-size: 15px;
+    /* justify; */
+    text-align: justify;
 }
 
 .author-info p {
@@ -287,20 +327,59 @@ svg {
     margin-top: -100px;
 }
 
-/* make navbar responsive */
-@media screen and (max-width: 980px) {
-    nav ul {
-        flex-direction: column;
+@media only screen and (max-width: 700px) {
+
+    nav {
+        padding: 0px 20px;
     }
 
-    .contact-me {
+    .collapse-item {
         display: none;
     }
 
-    .container{
-        width: 700px;
+    #hamburger-btn {
+        display: flex;
+        /* efek animasi */
+        
+    }    
+
+    .container {
+        width: 100%;
+        border-radius: 0;
+    }
+    
+}
+
+@media only screen and (max-width: 700px) {
+    .article a {
+        float: none;
     }
 
+    .author{
+        flex-direction: column;
+    }
 
+    .author img {
+        margin: 10px auto;
+    }
 
+    .author-info {
+        margin: 0px auto;
+        padding: 10px;
+        text-align: center;
+        width: 80%;
+    }
+
+    .author-info p {
+        text-align: center;
+    }
+
+    .sosmed {
+        margin-top:10px;
+        display: inline-block;
+    }
+
+    .sosmed a {
+        text-align: center;
+    }
 }
