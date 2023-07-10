@@ -136,13 +136,6 @@
     font-size: 15px;
 }
 
-.img-project-detail img {
-    width: 700px;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
 .error-message {
     margin: 5px;
     color: red;
@@ -182,12 +175,55 @@
     border-radius: 10px;
 }
 
+.img-project-detail img {
+    max-width: 500px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+
 /* atur tulisan di dalam button */
 .button-project button a {
     text-decoration: none;
     color: white;
     font-size: 15px;
     transition: 0.3s;
+}
+
+@media only screen and (max-width: 775px) {
+    .info-project {
+        display: block;
+        /* border: 1px solid white; */
+        flex-direction: none;
+        
+    }
+
+    .info-project-detail {
+        display: block;
+        /* border: 1px solid white; */
+        padding: 10px 0px;
+        /* flex-direction: column; */
+    }
+
+    .img-project-detail {
+        width: none;
+        height: none;
+    }
+
+    .img-project-detail img{
+        max-width: 100%;
+        /* flex-direction: column; */
+    }
+
+}
+
+@media only screen and (max-width: 700px) {
+    #container {
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width: 500px) {
@@ -210,12 +246,5 @@
     .project-items {
         padding: 10px 20px;
     }
-
-    .info-project-detail {
-        padding: 10px 20px;
-    }
-
-    .img-project-detail img {
-        width: 100%;
-    }
+    
 }
