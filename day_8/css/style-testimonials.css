@@ -192,4 +192,9 @@
     .article hr {
         width: 90%;
     }
+
+    .article{
+        margin: 20px 0;
+    }
+
 }
