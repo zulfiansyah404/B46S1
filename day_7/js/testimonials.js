@@ -1,14 +1,20 @@
 class Testimonial {
     #quote = ""
     #image = ""
+    #rating = 0
 
-    constructor(quote, image) {
+    constructor(quote, image, rating) {
         this.#quote = quote
         this.#image = image
+        this.#rating = rating
     }
 
     get quote() {
         return this.#quote
+    }
+
+    get rating() {
+        return this.#rating
     }
 
     get image() {
