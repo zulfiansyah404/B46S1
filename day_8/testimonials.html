@@ -61,7 +61,7 @@
                     <div class="rating-testimonials">
                         <h2>Rating By Star :</h2>
                         <div class="btn-stars">
-                            <select name="choose-rating" onclick="checkSelectRating()">
+                            <select name="choose-rating" onclick="checkSelectRating(this)">
                                 <option value="all">All</option>
                                 <option value="1">1 Star</option>
                                 <option value="2">2 Star</option>
@@ -69,26 +69,26 @@
                                 <option value="4">4 Star</option>
                                 <option value="5">5 Star</option>
                             </select>
-                            <button class="btn-star-collapse">
+                            <button class="btn-star-collapse" onclick="testimonialsAll()">
                                 All
                             </button>
-                            <button class="btn-star-collapse">
+                            <button class="btn-star-collapse" onclick="FilterTestimonial(1)">
                                 <i class="fa-solid fa-star"></i>
                                 1
                             </button>
-                            <button class="btn-star-collapse">
+                            <button class="btn-star-collapse" onclick="FilterTestimonial(2)">
                                 <i class="fa-solid fa-star"></i>
                                 2
                             </button>
-                            <button class="btn-star-collapse">
+                            <button class="btn-star-collapse" onclick="FilterTestimonial(3)">
                                 <i class="fa-solid fa-star"></i>
                                 3
                             </button>
-                            <button class="btn-star-collapse">
+                            <button class="btn-star-collapse" onclick="FilterTestimonial(4)">
                                 <i class="fa-solid fa-star"></i>
                                 4
                             </button>
-                            <button class="btn-star-collapse">
+                            <button class="btn-star-collapse" onclick="FilterTestimonial(5)">
                                 <i class="fa-solid fa-star"></i>
                                 5
                             </button>

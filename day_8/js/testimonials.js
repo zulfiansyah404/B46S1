@@ -205,15 +205,25 @@ function testimonialsAll() {
 
 testimonialsAll()
 
+function checkSelectRating(rate) {
+    if (rate.value == "all") {
+        testimonialsAll()
+    }
+    else {
+        FilterTestimonial(parseInt(rate.value))
+    }
+}
+
 // FILTER
 function FilterTestimonial(rate) {
+    console.log(rate)
     let filteredTestimonialHTML = ""
 
     const filteredData = testiData.filter((items) => {
         return items.rating === rate
     })
 
-    testiData.forEach((items) => { 
+    filteredData.forEach((items) => { 
         let icon = ""
         if (items.isCompany) {
             icon = `<i class="fas fa-building"></i>`
@@ -221,7 +231,7 @@ function FilterTestimonial(rate) {
             icon = `<i class="fas fa-user"></i>`
         }
 
-        testimonialsHTML += `
+        filteredTestimonialHTML += `
         <div class="testimonial">
             <div class="logo-test">
                 ${icon}   
@@ -232,12 +242,12 @@ function FilterTestimonial(rate) {
             `
         
         for (let i = 0; i < items.rating; i++) {
-            testimonialsHTML += `
+            filteredTestimonialHTML += `
                 <i class="fa-solid fa-star"></i>
             `
         }
 
-        testimonialsHTML += `
+        filteredTestimonialHTML += `
                 </div>
                 <div class="comment">
                     <p>
