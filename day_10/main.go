@@ -11,8 +11,8 @@ func main() {
 
 	e.GET("/", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string {
-			"name" : "lala",
-			"address": "123",
+			"name" : "zulfiansyah",
+			"address": "404",
 		})
 	})
 
