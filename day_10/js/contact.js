@@ -10,7 +10,7 @@ function submitData(data) {
 
     let name = document.getElementById("name").value
     let email = document.getElementById("email").value
-    let phone = document.getElementById("phone-number").value
+    let phone = document.getElementById("phone").value
     let subject = document.getElementById("subject").value
     let message = document.getElementById("message").value
 
