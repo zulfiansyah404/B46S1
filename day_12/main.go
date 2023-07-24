@@ -3,11 +3,13 @@ package main
 import (	
 	"github.com/labstack/echo/v4"	
 	"project/controllers"
+	"project/connection"
 )
 
 func main() {
 	e := echo.New()
-
+	connection.DatabaseConnect()
+	
 	// Mengatur penanganan file static
 	e.Static("/assets", "assets")
 	//File static dari directory pc
