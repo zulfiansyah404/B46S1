@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Day 11 | Project</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.png"/>
+    <title>Day 11 | Edit Project</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/logo.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
         rel="stylesheet"
@@ -16,9 +16,9 @@
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
         crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style-form.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style-project.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style-form.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style-project.css">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
     <nav id="navbar" class="navbar navbar-expand-lg position-fixed z-2" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="assets/#">
-                <img src="assets/img/logo.png" alt="Bootstrap" width="50px">
+                <img src="/assets/img/logo.png" alt="Bootstrap" width="50px">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -68,23 +68,23 @@
             </div>
             <div class="form-body ">
                 <h3 class="fw-bolder">
-                    Add New Project
+                    Edit Project
                 </h3>
-                <form action="/" method="post">
+                <form action="/edit-project/{{.Id}}" method="post">
                     <div class="form-item mb-3">
                         <label for="name" class="form-label glacial-indifference">Project Name : </label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Your Project Name..." required>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Your Project Name..." value="{{.Project.Name}}" required>
                     </div>
                     <div class="form-item mb-3 date-container">
                         <div class="row">
                             <div class="col">
                                 <label for="name" class="form-label glacial-indifference">Start Date :</label>
-                                <input type="date" id="start-date" name="start-date" class="form-control" required>
+                                <input type="date" id="start-date" name="start-date" class="form-control" value="{{.Project.StartDate}}" required>
                             
                             </div>
                             <div class="col">
                                 <label for="name" class="form-label glacial-indifference">End Date :</label>
-                                <input type="date" id="end-date" name="end-date" class="form-control" required>
+                                <input type="date" id="end-date" name="end-date" class="form-control" value="{{.Project.EndDate}}" required>
                             
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                     
                     <div class="form-item mb-3">
                         <label for="description" class="form-label glacial-indifference">Description :</label>
-                        <textarea name="description" id="description" class="form-control" rows="10" placeholder="Write Something..." required></textarea>
+                        <textarea name="description" id="description" class="form-control" rows="10" placeholder="Write Something..." required> {{.Project.Description}} </textarea>
                     </div>
                     
                     <div class="form-item-mb-5">
@@ -137,7 +137,7 @@
                     <!-- Upload Image -->
                     <div class="form-item mb-3 mt-2">
                         <label for="image" class="form-label glacial-indifference">Image :</label>
-                        <input type="file" name="image" id="image" class="form-control form-upload" required data-bs-theme="dark">
+                        <input type="file" name="image" id="image" class="form-control form-upload" value="{{.Project.Image}}" required data-bs-theme="dark">
                         
                     </div>
                     

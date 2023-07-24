@@ -1,7 +1,7 @@
 const promise = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest()
 
-    xhr.open("GET", "https://api.npoint.io/5783474adb42b306a142", true)
+    xhr.open("GET", "https://api.npoint.io/0443d18004bb2c4f8fdb", true)
     xhr.onload = function () {
         if (xhr.status === 200) {
             resolve(JSON.parse(xhr.responseText))
@@ -43,7 +43,7 @@ function testimonialsAll() {
         }
 
         testimonialsHTML += `
-        <div class="testimonial">
+        <div class="testimonial bg-dark">
             <div class="logo-test">
                 ${icon}   
             </div>
@@ -61,11 +61,11 @@ function testimonialsAll() {
         testimonialsHTML += `
                 </div>
                 <div class="comment">
-                    <p>
+                    <p class="text-white-50">
                         "${items.text}"
                     </p>
                 </div>
-                <h2>
+                <h2 class="glacial-indifference">
                     - ${items.autors}
                 </h2>
                 
@@ -106,7 +106,7 @@ function FilterTestimonial(rate) {
         }
 
         filteredTestimonialHTML += `
-        <div class="testimonial">
+        <div class="testimonial bg-dark">
             <div class="logo-test">
                 ${icon}   
             </div>
@@ -124,11 +124,11 @@ function FilterTestimonial(rate) {
         filteredTestimonialHTML += `
                 </div>
                 <div class="comment">
-                    <p>
+                    <p class="text-white-50">
                         "${items.text}"
                     </p>
                 </div>
-                <h2>
+                <h2 class="glacial-indifference">
                     - ${items.autors}
                 </h2>
                 

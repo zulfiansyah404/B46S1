@@ -21,11 +21,11 @@
 }
 
 .testimonial {
-    background: rgb(32, 28, 44);
+    background: #2c3138;
     margin: 10px 20px 10px;
     width: 400px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); */
 }
 
 .logo-test {
@@ -48,7 +48,6 @@
 .comment {
     margin: 10px 0px 10px;
     height: 70px;
-    /* jika konten br */
     overflow: auto;
 }
 
@@ -83,7 +82,7 @@
 
 .rating-testimonials {
     height: 60px;
-    background: rgb(32, 28, 44);
+    background: none;
     margin: 0 auto 20px;
     display: flex;
     justify-content: center;
@@ -95,13 +94,9 @@
 
 .rating-testimonials h2 {
     font-size: large;
-    font-family: Raleway, sans-serif;
-    /* Buat ke tengah secara vertical */
-    /* display: flex; */
 }
 
 .btn-stars {
-    /* top: 50%; */
     margin: 0px 0 0 12px;
 }
 
@@ -109,7 +104,6 @@
     margin: 0px 4px;
     cursor: pointer;
     padding: 5px;
-    background: red;
     border: none;
     border-radius: 10px;
     color: aliceblue;

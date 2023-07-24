@@ -68,23 +68,23 @@
             <div class="blog-body">
                 <h3 class="fw-bolder">
                     <!-- String Matching dan Regular Expression dalam Pembuatan ChatGPT Sederhana -->
-                    {{.Title}}
+                    {{.Project.Name}}
                 </h3>
 
                 <div class="row mt-3 img-detail-blog">
                     <div class="col">
-                        <img src="https://user-images.githubusercontent.com/91790457/236441708-c1997cae-a9da-48e6-9d13-e9e8af6d38b8.png" class="rounded float-start" alt="Responsive image" style="width: 100%; max-width: 700px; object-fit: cover;">
+                        <img src='../{{.Project.Image}}' class="rounded float-start" alt="Responsive image" style="width: 100%; max-width: 700px; object-fit: cover;">
                     </div>
                     <div class="col project-detail-info glacial-indifference">
                         <h5>Duration : </h5>
                         <div class="row d-block mb-3" style="font-size: 1rem;" >
                             <div class="col">
                                 <i class="fa fa-calendar-alt text-info "></i>
-                                <span class="ms-2 text-body">20 August 2021 - 20 September 2021</span>
+                                <span class="ms-2 text-body">{{.Project.StartDate}} - {{.Project.EndDate}}</span>
                             </div>
                             <div class="col">
                                 <i class="fa fa-clock text-info "></i>
-                                <span class="ms-2 text-body">{{.Duration}}</span>
+                                <span class="ms-2 text-body">{{.Project.Duration}}</span>
                             </div>
                         </div>
 
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <p class="mt-3">
-                        {{.Content}}
+                        {{.Project.Description}}
                     </p>
                 </div>
                 
