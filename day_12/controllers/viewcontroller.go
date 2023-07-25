@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"project/connection"
 )
-
+==
 var ProjectList []models.Project
 
 func updateProjectList() {
@@ -35,8 +35,8 @@ func Home(c echo.Context) error {
 		"Projects": ProjectList,
 	}
 
-	// Print isi projects
-	fmt.Println(projects)
+	// // Print isi projects
+	// fmt.Println(projects)
 
 	return tmp.Execute(c.Response(), projects)
 }
@@ -121,10 +121,13 @@ func EditProjectView(c echo.Context) error {
 	startDate := ProjectDetail.StartDate.Format("2006-01-02")
 	endDate := ProjectDetail.EndDate.Format("2006-01-02")
 
+	fmt.Println(startDate)
+	fmt.Println(endDate)
+
 	for _, data := range ProjectList {
 		if id == data.ID {
 			ProjectDetail = models.Project{
-				Name:    data.Name,
+				Name:    	data.Name,
 				StartDate:  	data.StartDate,
 				EndDate:    	data.EndDate,
 				Duration:   	data.Duration,

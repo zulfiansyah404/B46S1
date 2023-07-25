@@ -131,10 +131,10 @@ func EditProject(c echo.Context) error {
 		EndDate:    	endDateConv,
 		Duration:   	getDuration(startDate, endDate),
 		Description:	description,
-		NodeJs:     	(nodeJs == "node-js"),
-		ReactJs:    	(reactJs == "react-js"),
-		Golang:     	(golang == "go"),
-		Java: 			(java == "java"),
+		NodeJs:     	(nodeJs == "checked"),
+		ReactJs:    	(reactJs == "checked"),
+		Golang:     	(golang == "checked"),
+		Java: 			(java == "checked"),
 		Image: 			image,
 	}
 
