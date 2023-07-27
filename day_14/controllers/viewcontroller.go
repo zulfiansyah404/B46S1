@@ -12,9 +12,9 @@ import (
 
 var ProjectList []models.Project
 
-func updateProjectList() {
-	connection.DB.Find(&ProjectList)
-}
+// func updateProjectList() {
+// 	// connection.DB.Find(&ProjectList)
+// }
 
 // Fungsi mengeluarkan respond Hello World
 func HelloWorld(c echo.Context) error {
@@ -29,7 +29,10 @@ func Home(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
 	}
 
-	updateProjectList()
+	// updateProjectList()
+	if err := connection.DB.Find(&ProjectList).Error; err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
+	}
 
 	projects := map[string]interface{} {
 		"Projects": ProjectList,
