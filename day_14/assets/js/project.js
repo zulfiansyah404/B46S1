@@ -1,13 +1,4 @@
-let firstProject = {
-    name : "String Matching dan Regular Expression dalam Pembuatan ChatGPT Sederhana",
-    duration : "1 month",
-    description : "Project Tubes III STIMA Teknik Informatika ITB merupakan project yang dikerjakan oleh 3 orang mahasiswa Teknik Informatika ITB. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma. Project ini merupakan project yang dikerjakan untuk memenuhi tugas mata kuliah Strategi Algoritma.Repository ini berisi aplikasi ChatGPT sederhana berbasis web. Aplikasi ChatGPT sederhana ini dibangun dengan mengimplementasikan algoritma string matching (Knuth-Morris-Pratt dan Boyer-Moore) dan juga regular expression. Aplikasi ini dapat menjawab pertanyaan berdasarkan masukan dari pengguna. Jenis pertanyaan yang dapat dijawab antara lain: Pertanyaan yang terdapat didalam database (menjawab menggunakan algoritma KMP atau BM) Kalkulator sederhana Menanyakan hari berdasarkan tanggal Menambahkan pertanyaan dan jawaban ke dalam database Menghapus pertanyaan dari database Selain itu, history dari pertanyaan yang dimasukkan akan disimpan ke dalam sebuah section pertanyaan untuk sebuah sesi. Pengguna juga dapat menambahkan section baru dengan mengklik add new history. Untuk pembuatan program ini, pembuatan frontend dilakukan dengan menggunakan bahasa pemrograman HTML, CSS, dan juga Javascript dengan menggunakan Framework React. Untuk Backend dari program dibuat dengan menggunakan bahasa pemrograman Golang. Sedangkan untuk penyimpanan database menggunakan MySQL.",
-    listIconTech : ['<i class="fa-brands fa-node-js"></i>',
-    '<i class="fa-brands fa-react"></i>'],
-    image : "https://user-images.githubusercontent.com/91790457/236441708-c1997cae-a9da-48e6-9d13-e9e8af6d38b8.png",
-    href : "project-detail/1"
-}
-let listProject = [firstProject]
+
 
 // Fungsi untuk menentukan berapa hari, bulan, tahun, atau abad dari start_date dan end_date
 // Parameter : start_date, end_date : string(format: yyyy-mm-dd)
@@ -114,53 +105,26 @@ const addProject = (event) => {
         return
     }
 
-    let project = {
-        name, 
-        duration,
-        description, 
-        listIconTech,
-        href : `project-detail/${listProject.length}`,
-        image
-    }
+    const form = document.getElementById("form-project")
+    const formData = new FormData(form)
 
-    listProject.push(project)
-    renderProject()
+    sendDataToServer(formData)
 }   
 
-// Fungsi untuk merender list project
-const renderProject = () => {
-    document.getElementById("projects").innerHTML = '' // Inisialisasi elemen list Project masih kosong
-    for (let i = 0; i < listProject.length; i++) {
-        document.getElementById("projects").innerHTML += `
-        <div class="col">
-            <div class="project card ms-auto me-auto shadow-lg border-0 border-bottom mb-3"  data-bs-theme="dark">
-                <div class="card-header d-flex flex-row-reverse pt-1 pe-3">
-                    <!-- font-awesome tempat sampah -->
-                    <a href="#" class="text-decoration-none text-danger "><i class="fas fa-trash-alt"></i></a>
-                    <!-- font awesome pencil -->
-                    <a href="#" class="text-decoration-none text-warning me-3"><i class="fas fa-pencil-alt"></i></a>
-                    
-                </div>
-                <img src="${listProject[i].image}" class="card-img-top mb-3" alt="...">
-                <div class="card-body ps-4 pe-4">
-                    <h5 class="card-title mb-2"><a href="${listProject[i].href}" class="fw-bold fs-3 text-decoration-none" id="card-title">${listProject[i].name}</a></h5>
-                    <div class="card-duration glacial-indifference fs-6 mb-3">
-                        <span style="color: #fe7e67;">Duration: </span> ${listProject[i].duration}
-                    </div>
-                    <p class="card-text fs-7 mb-3">${listProject[i].description}</p>
-                    <div class="icon-tech fs-2 text-info-emphasis">
-                        ${listProject[i].listIconTech.join(' ')}
-                    </div>
-                </div>
-            </div>
-            
-            
+function sendDataToServer(formData) {
+    const url = "http://localhost:8000/"
 
-        </div>
-                
-        `
-    }
+    fetch(url, {
+        method: "POST",
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            window.location.href = "http://localhost:8000/"
+        })
+        .catch(error => {
+            return console.log(error)
+        })
 }
 
-// Program Utama
-renderProject()

@@ -72,17 +72,6 @@ func AddProject(c echo.Context) error {
 	java := c.FormValue("java")
 	image := c.FormValue("image")
 
-	// Tulis di console untuk debugging
-	fmt.Println(name)
-	fmt.Println(startDate)
-	fmt.Println(endDate)
-	fmt.Println(description)
-	fmt.Println(nodeJs)
-	fmt.Println(reactJs)
-	fmt.Println(golang)
-	fmt.Println(java)
-	fmt.Println(image)
-
 	// Ubah format startdate dan enddate dari string menjadi time.Time
 	startDateConv, _ := time.Parse("2006-01-02", startDate)
 	endDateConv, _ := time.Parse("2006-01-02", endDate)
@@ -103,6 +92,20 @@ func AddProject(c echo.Context) error {
 	if connection.DB.Create(&newProject).RowsAffected == 0 {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Failed to add project"})
 	}
+
+	fmt.Println(" Project added successfully")
+	fmt.Println("--------------------------")
+	fmt.Println("Name : " + newProject.Name)
+	fmt.Println("Start Date : " + newProject.StartDate.String() + " (" + startDate + ")")
+	fmt.Println("End Date : " + newProject.EndDate.String() + " (" + endDate + ")")
+	fmt.Println("Duration : " + newProject.Duration)
+	fmt.Println("Description : " + newProject.Description)
+	fmt.Println("Node JS : " + strconv.FormatBool(newProject.NodeJs))
+	fmt.Println("React JS : " + strconv.FormatBool(newProject.ReactJs))
+	fmt.Println("Golang : " + strconv.FormatBool(newProject.Golang))
+	fmt.Println("Java : " + strconv.FormatBool(newProject.Java))
+	fmt.Println("Image : " + newProject.Image)
+	fmt.Println("--------------------------\n\n")
 
 	return c.Redirect(http.StatusMovedPermanently, "/")
 }

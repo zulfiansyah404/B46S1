@@ -104,13 +104,13 @@
                         
                         <div class="row mb-1">
                             <div class="col">
-                                <input class="form-check-input" name="node-js" type="checkbox" value="checked" id="node-js">
+                                <input class="form-check-input" name="node-js" type="checkbox" value="checked" id="node-js" {{if .Project.NodeJs}} checked="true" {{end}}>
                                 <label class="form-check-label" for="node-js">
                                     Node JS 
                                 </label>
                             </div>
                             <div class="col">
-                                <input class="form-check-input" name="java" type="checkbox" value="checked" id="java">
+                                <input class="form-check-input" name="java" type="checkbox" value="checked" id="java" {{if .Project.Java}} checked="true" {{end}}>
                                 <label class="form-check-label" for="java">
                                     Java
                                 </label>
@@ -118,13 +118,13 @@
                         </div>
                         <div class="row">
                             <div class="col ">
-                                <input class="form-check-input" name="react-js" type="checkbox" value="checked" id="react-js">
+                                <input class="form-check-input" name="react-js" type="checkbox" value="checked" id="react-js" {{if .Project.ReactJs}} checked="true" {{end}}>
                                 <label class="form-check-label" for="react-js">
                                     React JS
                                 </label>
                             </div>
                             <div class="col">
-                                <input class="form-check-input" name="go" type="checkbox" value="checked" id="go">
+                                <input class="form-check-input" name="go" type="checkbox" value="checked" id="go" {{if .Project.Golang}} checked="true" {{end}}>
                                 <label class="form-check-label" for="go">
                                     Go
                                 </label>

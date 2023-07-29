@@ -9,7 +9,8 @@ import (
 var DB *gorm.DB
 
 func DatabaseConnect() {
-	database, err := gorm.Open(postgres.Open("postgres://default:0vWRuhSlz7GN@ep-lingering-bonus-79890093-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb"), &gorm.Config{})
+	// Menyambungkan ke localhost:5432
+	database, err := gorm.Open(postgres.Open("postgresql://postgres:yesnmahsheh@localhost:5432/postgres"), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

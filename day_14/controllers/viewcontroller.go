@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"net/http"
 	"text/template"
-	"fmt"
 	"project/connection"
 )
 
@@ -79,10 +78,6 @@ func ProjectDetailView(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	var ProjectDetail = models.Project{}
-	
-	// ubah dahulu format startdate dan enddate dari time.Time menjadi string
-	startDate := ProjectDetail.StartDate.Format("2006-01-02")
-	endDate := ProjectDetail.EndDate.Format("2006-01-02")
 
 	for _, data := range ProjectList {
 		if id == data.ID {
@@ -103,8 +98,8 @@ func ProjectDetailView(c echo.Context) error {
 	data := map[string]interface{}{
 		"Project":   ProjectDetail,
 		"Id":		 id,
-		"StartDate": startDate,
-		"EndDate":   endDate,
+		"StartDate": ProjectDetail.StartDate.Format("2 January 2006"),
+		"EndDate":   ProjectDetail.EndDate.Format("2 January 2006"),
 	}
 
 	var tmpl, err = template.ParseFiles("views/project-detail.html")
@@ -120,12 +115,6 @@ func EditProjectView(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	var ProjectDetail = models.Project{}
-	// ubah dahulu format startdate dan enddate dari time.Time menjadi string
-	startDate := ProjectDetail.StartDate.Format("2006-01-02")
-	endDate := ProjectDetail.EndDate.Format("2006-01-02")
-
-	fmt.Println(startDate)
-	fmt.Println(endDate)
 
 	for _, data := range ProjectList {
 		if id == data.ID {
@@ -135,10 +124,10 @@ func EditProjectView(c echo.Context) error {
 				EndDate:    	data.EndDate,
 				Duration:   	data.Duration,
 				Description: 	data.Description,
-				NodeJs:     	false,
-				ReactJs:    	false,
-				Golang:     	false,
-				Java: 			false,
+				NodeJs:     	data.NodeJs,
+				ReactJs:    	data.ReactJs,
+				Golang:     	data.Golang,
+				Java: 			data.Java,
 				Image: 			data.Image,
 			}
 		}
@@ -147,8 +136,8 @@ func EditProjectView(c echo.Context) error {
 	data := map[string]interface{}{
 		"Project":   ProjectDetail,
 		"Id": id,
-		"StartDate": startDate,
-		"EndDate":   endDate,
+		"StartDate": ProjectDetail.StartDate.Format("2006-01-02"),
+		"EndDate":   ProjectDetail.EndDate.Format("2006-01-02"),
 	}
 
 	var tmpl, err = template.ParseFiles("views/edit-project.html")
