@@ -72,6 +72,12 @@ func AddProject(c echo.Context) error {
 	java := c.FormValue("java")
 	image := c.FormValue("image")
 
+	// Cek dahulu apakah startdate lebih besar dari enddate
+	if startDate > endDate {
+		// Berikan isi pada label dengan id="dateHelp"
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": "Start date must be less than end date"}) 
+	}
+
 	// Ubah format startdate dan enddate dari string menjadi time.Time
 	startDateConv, _ := time.Parse("2006-01-02", startDate)
 	endDateConv, _ := time.Parse("2006-01-02", endDate)

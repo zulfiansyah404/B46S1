@@ -10,35 +10,10 @@ const getDuration = (start_date, end_date) => {
 
     // Jika durasi minus, maka return false
     if (duration < 0) {
+        console.log(Math.floor((duration) / (1000 * 60 * 60 * 24)))
         return false
     }
-
-    let days = Math.floor((duration) / (1000 * 60 * 60 * 24))
-    let months = Math.floor(days / 30)
-    let years = Math.floor(months / 12)
-    let centuries = Math.floor(years / 100)
-
-    if (centuries > 0) {
-        if (centuries > 1) {
-            return `${centuries} centuries`
-        }
-        return `${centuries} century`
-    } else if (years > 0) {
-        if (years > 1) {
-            return `${years} years`
-        }
-        return `${years} year`
-    } else if (months > 0) {
-        if (months > 1) {
-            return `${months} months`
-        }
-        return `${months} bulan`
-    } else {
-        if (days > 1) {
-            return `${days} days`
-        }
-        return `${days} hari`
-    }
+    return true
 }
 
 
@@ -48,83 +23,98 @@ const removeAlertEmpty = (id) => {
     document.getElementById(id).innerHTML = ''
 }
 
-const addProject = (event) => {
+// Prosedur untuk mengecek apakah form valid
+// Parameter : event : event
+const checkValidForm = (event) => {
     event.preventDefault()
 
-    let name = document.getElementById('name').value
-    let description = document.getElementById('description').value
     let start_date = document.getElementById('start-date').value
     let end_date = document.getElementById('end-date').value
 
     let isDataComplete = true
 
-    // Icon teknologi
-    const nodejs_icon = '<i class="fa-brands fa-node-js"></i>';
-    const reactjs_icon = '<i class="fa-brands fa-react"></i>';
-    const java_icon = '<i class="fa-brands fa-java"></i>';
-    const golang_icon = '<i class="fa-brands fa-golang"></i>';
+    duration = getDuration(start_date, end_date)
+    if (duration == false) {
+        document.getElementById('dateHelp').innerHTML = 'The end date cannot be earlier than the start date'
+        isDataComplete = false
+    } else {
+        document.getElementById('dateHelp').innerHTML = ''
+    }
 
-    let listIconTech = []
+    let iconTechCount = false
     if (document.getElementById('node-js').checked) {
-        listIconTech.push(nodejs_icon)
+        iconTechCount = true
     }
-    if (document.getElementById('react-js').checked) {
-        listIconTech.push(reactjs_icon)
+    else if (document.getElementById('react-js').checked) {
+        iconTechCount = true
     }
-    if (document.getElementById('java').checked) {
-        listIconTech.push(java_icon)
+    else if (document.getElementById('java').checked) {
+        iconTechCount = true
     }
-    if (document.getElementById('go').checked) {
-        listIconTech.push(golang_icon)
+    else if (document.getElementById('go').checked) {
+        iconTechCount = true
     }
 
-    //  Cek apakah listIconTech kosong atau tidak
-    if (listIconTech.length == 0) {
+    //  Cek apakah iconTechCount kosong atau tidak
+    if (!iconTechCount) {
         document.getElementById('techHelp').innerHTML = 'Choose at least 1 technology'
         isDataComplete = false
     } else {
         document.getElementById('techHelp').innerHTML = ''
     }
 
-    //  Cek apakah image kosong atau tidak
-    let image = document.getElementById('image').files
+    return isDataComplete;
+}
 
-    image = URL.createObjectURL(image[0])
 
-    duration = getDuration(start_date, end_date)
-    if (duration == false) {
-        document.getElementById('dateHelp').innerHTML = 'The end date cannot be earlier than the start date'
+// Fungsi untuk menambahkan project
+// Parameter : event : event
+const addProject = (event) => {
+    if (!checkValidForm(event)) {
         return
     }
+    
+    const form = document.getElementById("form-project")
+    const formData = new FormData(form)
 
-    // Debug
-    // console.log(start_date)
-    // console.log(typeof start_date)
+    sendDataToServer(formData, "/", "POST")
+}   
 
-    if (!isDataComplete) {
+// Fungsi untuk mengubah project
+// Parameter : event : event
+const editProject = (event) => {
+    if (!checkValidForm(event)) {
         return
     }
 
     const form = document.getElementById("form-project")
     const formData = new FormData(form)
 
-    sendDataToServer(formData)
-}   
+    id = document.getElementById('id').value
 
-function sendDataToServer(formData) {
-    const url = "http://localhost:8000/"
+    sendDataToServer(formData, "/edit-project/" + id, "POST")
+}
 
-    fetch(url, {
-        method: "POST",
-        body: formData
+// Fungsi untuk send data ke server
+// Parameter : formData : FormData, url : string, method : string
+function sendDataToServer(formData, url, method) {
+
+    fetch(url,{
+        action: url,
+        method: method,
+        body: formData  
     })
-        .then(response => response.json())
         .then(data => {
+            console.log("breakpoint 1")
             console.log(data)
-            window.location.href = "http://localhost:8000/"
+            // Pindahkan ke halaman project
+            window.location.href = "/"
+            console.log("breakpoint 2")
         })
         .catch(error => {
             return console.log(error)
         })
 }
 
+console.log("Hello World")
+console.log("Id =", document.getElementById('id').value)
