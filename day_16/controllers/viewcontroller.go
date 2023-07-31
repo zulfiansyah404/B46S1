@@ -13,6 +13,12 @@ import (
 
 var ProjectList []models.Project
 
+type SessionLogin struct {
+	IsLogin bool
+	Username string
+}
+
+
 
 // func updateProjectList() {
 // 	// connection.DB.Find(&ProjectList)
@@ -31,16 +37,16 @@ func Home(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
 	}
 
-	// updateProjectList()
-	if err := connection.DB.Find(&ProjectList).Error; err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
-	}
-
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
 	}
 
+	// Tampilkan hanya project yang authornya adalah username yang sedang login
+	if err := connection.DB.Where("author = ?", sess.Values["username"]).Find(&ProjectList).Error; err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
+	}
+	
 	if sess.Values["isLogin"] == nil {
 		sess.Values["isLogin"] = false
 	}
@@ -55,13 +61,14 @@ func Home(c echo.Context) error {
 	fmt.Println("Email: ", sess.Values["email"])
 	fmt.Println("------------------")
 	fmt.Println("")
-	fmt.Println("")
+	fmt.Println("")	
 
 	dataResponds := map[string]interface{} {
 		"Projects": ProjectList,
 		"Message": sess.Values["message"],
 		"Status" : sess.Values["status"],
 		"User": sess.Values["username"],
+		"Name": sess.Values["name"],
 	}
 
 	delete(sess.Values, "message")
@@ -74,15 +81,20 @@ func Home(c echo.Context) error {
 }
 
 func LoginView(c echo.Context) error {
+	// Pastikan bahwa user tidak bisa mengakses halaman login jika sudah login
+	sess, errSess := session.Get("session", c)
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
+	}
+
+	if sess.Values["isLogin"] == true {
+		return c.Redirect(http.StatusFound, "/")
+	}
+
 	var tmp, err = template.ParseFiles("views/login.html")
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
-	}
-
-	sess, errSess := session.Get("session", c)
-	if errSess != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
 	}
 
 	dataResponds := map[string]interface{} {
@@ -97,13 +109,18 @@ func LoginView(c echo.Context) error {
 func RegisterView(c echo.Context) error {
 	var tmp, err = template.ParseFiles("views/register.html")
 
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
-	}
-
+	// Pastikan bahwa user tidak bisa mengakses halaman login jika sudah login
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
+	}
+
+	if sess.Values["isLogin"] == true {
+		return c.Redirect(http.StatusFound, "/")
+	}
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
 	}
 
 	dataResponds := map[string]interface{} {
@@ -117,17 +134,23 @@ func RegisterView(c echo.Context) error {
 
 // Fungsi menampilkan Menu untuk menambah project
 func AddProjectView(c echo.Context) error {
+	// Pastikan dahulu bahwa user sudah login
+	sess, errSess := session.Get("session", c)
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
+	}
+
+	if sess.Values["isLogin"] != true {
+		sess.Save(c.Request(), c.Response())
+		return RedirectWithMessage(c, "You must login first", false ,"/login")
+	}
+
 	fmt.Println("Add Project View")
 	var tmp, err = template.ParseFiles("views/project.html")
 
 	if err != nil {
 		fmt.Println("Break 1")
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
-	}
-	sess, errSess := session.Get("session", c)
-	if errSess != nil {
-		fmt.Println("Break 2")
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
 	}
 
 	dataResponds := map[string]interface{} {
@@ -189,36 +212,40 @@ func TestimonialView(c echo.Context) error {
 		"User": sess.Values["username"],
 	}
 
+	sess.Save(c.Request(), c.Response())
+
 	return tmp.Execute(c.Response(), dataResponds)
 }
 
 // Fungsi untuk menampilkan project-detail.html
 func ProjectDetailView(c echo.Context) error {
+	fmt.Println("Project Detail View")
 	id, _ := strconv.Atoi(c.Param("id"))
 
+	// Pastikan dahulu bahwa user sudah login
+	// Pastikan bahwa user yang membuka project detail adalah user yang membuat project tersebut
 	var ProjectDetail = models.Project{}
-
-	for _, data := range ProjectList {
-		if id == data.ID {
-			ProjectDetail = models.Project{
-				Name:    		data.Name,
-				StartDate:  	data.StartDate,
-				EndDate:    	data.EndDate,
-				Duration:   	data.Duration,
-				Description: 	data.Description,
-				NodeJs:     	data.NodeJs,
-				ReactJs:    	data.ReactJs,
-				Golang:     	data.Golang,
-				Java: 			data.Java,
-				Image: 			data.Image,
-			}
-		}
-	}
 
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
+		fmt.Println("Break 1")
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
 	}
+
+	if sess.Values["isLogin"] != true {
+		fmt.Println("Break 2")
+		sess.Save(c.Request(), c.Response())
+		return RedirectWithMessage(c, "You must login first", false ,"/login")
+	}
+
+	// Pastikan bahwa user yang membuka project detail adalah user yang membuat project tersebut
+	connection.DB.Where("id = ?", id).First(&ProjectDetail)
+	if ProjectDetail.Author != sess.Values["username"] {
+		fmt.Println("Break 3")
+		sess.Save(c.Request(), c.Response())
+		return RedirectWithMessage(c, "You are not allowed to access this page", false ,"/")
+	}
+
 
 
 	data := map[string]interface{}{
@@ -236,36 +263,58 @@ func ProjectDetailView(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
+	sess.Save(c.Request(), c.Response())
+
 	return tmpl.Execute(c.Response(), data)
 }
 
 // Fungsi untuk menampilkan menu untuk mengedit suatu project berdasarkan ID
 func EditProjectView(c echo.Context) error {
+	fmt.Println("Edit Project View")
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	var ProjectDetail = models.Project{}
-
-	for _, data := range ProjectList {
-		if id == data.ID {
-			ProjectDetail = models.Project{
-				Name:    	data.Name,
-				StartDate:  	data.StartDate,
-				EndDate:    	data.EndDate,
-				Duration:   	data.Duration,
-				Description: 	data.Description,
-				NodeJs:     	data.NodeJs,
-				ReactJs:    	data.ReactJs,
-				Golang:     	data.Golang,
-				Java: 			data.Java,
-				Image: 			data.Image,
-			}
-		}
-	}
-
+	// Pastikan dahulu bahwa user sudah login
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
 	}
+
+	if sess.Values["isLogin"] != true {
+		sess.Save(c.Request(), c.Response())
+		return RedirectWithMessage(c, "You must login first", false ,"/login")
+	}
+
+	// Lalu pastikan bahwa user yang login adalah author dari project tersebut
+	var ProjectDetail = models.Project{}
+	connection.DB.Where("id = ?", id).First(&ProjectDetail)
+
+	if (sess.Values["username"] != ProjectDetail.Author) {
+		sess.Save(c.Request(), c.Response())
+		return RedirectWithMessage(c, "You can't access this page", false ,"/")
+	}
+
+	// for _, data := range ProjectList {
+	// 	if id == data.ID {
+	// 		if (sess.Values["username"] != data.Author) {
+	// 			fmt.Println("Tidak sesuai!")
+	// 			sess.Save(c.Request(), c.Response())
+	// 			return RedirectWithMessage(c, "You can't access this page", false ,"/")
+	// 		} else {
+	// 			ProjectDetail = models.Project{
+	// 				NameProject:  	data.NameProject,
+	// 				StartDate:  	data.StartDate,
+	// 				EndDate:    	data.EndDate,
+	// 				Duration:   	data.Duration,
+	// 				Description: 	data.Description,
+	// 				NodeJs:     	data.NodeJs,
+	// 				ReactJs:    	data.ReactJs,
+	// 				Golang:     	data.Golang,
+	// 				Java: 			data.Java,
+	// 				Image: 			data.Image,
+	// 			}
+	// 		}	
+	// 	}
+	// }
 
 	data := map[string]interface{}{
 		"Project":   ProjectDetail,
@@ -283,6 +332,8 @@ func EditProjectView(c echo.Context) error {
 	delete(sess.Values, "status")
 	delete(sess.Values, "techError")
 	delete(sess.Values, "dateError")
+
+	sess.Save(c.Request(), c.Response())
 
 	var tmpl, err = template.ParseFiles("views/edit-project.html")
 	if err != nil {

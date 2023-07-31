@@ -103,11 +103,11 @@
                 <h3 class="fw-bolder">
                     Edit Project
                 </h3>
-                <form action="/edit-project/{{.Id}}" method="post">
+                <form action="/edit-project/{{.Id}}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="id" value="{{.Id}}">
                     <div class="form-item mb-3">
                         <label for="name" class="form-label glacial-indifference">Project Name : </label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Your Project Name..." value="{{.Project.Name}}" required>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Your Project Name..." value="{{.Project.NameProject}}" required>
                     </div>
                     <div class="form-item mb-3 date-container">
                         <div class="row">

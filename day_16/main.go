@@ -3,7 +3,7 @@ package main
 import (
 	"project/connection"
 	"project/controllers"
-
+	"project/middleware"
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
@@ -18,8 +18,7 @@ func main() {
 
 	// Mengatur penanganan file static
 	e.Static("/assets", "assets")
-	//File static dari directory pc
-	e.Static("/path", "C:")
+	e.Static("/uploads", "uploads")
 
 	// Daftar Routes GET
 	// Diambil dari controllers/viewcontroller.go
@@ -38,11 +37,11 @@ func main() {
 	e.POST("/login", controllers.Login)
 	e.POST("/register", controllers.Register)
 	e.POST("/logout", controllers.Logout)
-	e.POST("/", controllers.AddProject)
-	e.POST("/edit-project/:id", controllers.EditProject)
+	e.POST("/", middleware.UploadFile(controllers.AddProject))
+	e.POST("/edit-project/:id", middleware.UploadFile(controllers.EditProject))
 	e.POST("/delete-project/:id", controllers.DeleteProject)
 
 	// Server
-	e.Logger.Fatal(e.Start("localhost:8000"))
+	e.Logger.Fatal(e.Start("localhost:5000"))
 }
 

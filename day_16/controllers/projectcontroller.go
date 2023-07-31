@@ -70,7 +70,7 @@ func AddProject(c echo.Context) error {
 	reactJs := c.FormValue("react-js")
 	golang := c.FormValue("go")
 	java := c.FormValue("java")
-	image := c.FormValue("image")
+	image := "/uploads/" + c.Get("dataFile").(string)
 	
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
@@ -95,19 +95,17 @@ func AddProject(c echo.Context) error {
 		return RedirectWithMessage(c, "At least one of the checkbox must be checked", false, "/project")
 	}
 
-	// Save
-	err := sess.Save(c.Request(), c.Response())
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
-	}
-
 	// Ubah format startdate dan enddate dari string menjadi time.Time
 	startDateConv, _ := time.Parse("2006-01-02", startDate)
 	endDateConv, _ := time.Parse("2006-01-02", endDate)
 
+	fmt.Print("Author : " )
+	fmt.Println(sess.Values["name"])
+
 	var newProject = models.Project{
-		Name: 		name,	
-		StartDate: 	startDateConv,
+		NameProject:name,	
+		Author: 	sess.Values["username"].(string),
+		StartDate: 	startDateConv,	
 		EndDate:   	endDateConv,
 		Duration:   getDuration(startDate, endDate),
 		Description: description,
@@ -118,13 +116,19 @@ func AddProject(c echo.Context) error {
 		Image: 		image,
 	}
 
+	// Save
+	err := sess.Save(c.Request(), c.Response())
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
+	}
+
 	if connection.DB.Create(&newProject).RowsAffected == 0 {
 		return RedirectWithMessage(c, "Failed to add project", false, "/")
 	}
 
 	fmt.Println(" Project added successfully")
 	fmt.Println("--------------------------")
-	fmt.Println("Name : " + newProject.Name)
+	fmt.Println("Name : " + newProject.NameProject)
 	fmt.Println("Start Date : " + newProject.StartDate.String() + " (" + startDate + ")")
 	fmt.Println("End Date : " + newProject.EndDate.String() + " (" + endDate + ")")
 	fmt.Println("Duration : " + newProject.Duration)
@@ -141,6 +145,7 @@ func AddProject(c echo.Context) error {
 
 // Fungsi untuk mengedit elemen dari listProject berdasarkan ID
 func EditProject(c echo.Context) error {
+	fmt.Println("Editing project...")
 	id, _:= strconv.Atoi(c.Param("id"))
 
 	name := c.FormValue("name")
@@ -151,7 +156,7 @@ func EditProject(c echo.Context) error {
 	reactJs := c.FormValue("react-js")
 	golang := c.FormValue("go")
 	java := c.FormValue("java")
-	image := c.FormValue("image")
+	image := "/uploads/" + c.Get("dataFile").(string)
 
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
@@ -176,18 +181,13 @@ func EditProject(c echo.Context) error {
 		return RedirectWithMessage(c, "At least one of the checkbox must be checked", false, "/project")
 	}
 
-	// Save
-	err := sess.Save(c.Request(), c.Response())
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
-	}
-
 	// Ubah format startdate dan enddate dari string menjadi time.Time
 	startDateConv, _ := time.Parse("2006-01-02", startDate)
 	endDateConv, _ := time.Parse("2006-01-02", endDate)
 
 	var editedProject = map[string]interface{} {
-		"name": 		name,
+		"name_project": name,
+		"author": 		sess.Values["username"].(string),
 		"start_date": 	startDateConv,
 		"end_date":   	endDateConv,
 		"duration":   	getDuration(startDate, endDate),
@@ -197,6 +197,12 @@ func EditProject(c echo.Context) error {
 		"golang":     	(golang == "checked"),
 		"java": 		(java == "checked"),
 		"image": 		image,
+	}
+
+	// Save
+	err := sess.Save(c.Request(), c.Response())
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : err.Error()})
 	}
 
 	// fmt.Println("NodeJs: ", editedProject.NodeJs)
@@ -213,6 +219,7 @@ func EditProject(c echo.Context) error {
 
 // Fungsi untuk mengedit elemen dari listProject berdasarkan ID
 func DeleteProject(c echo.Context) error {
+	fmt.Println("Deleting project...")
 	Id, _ := strconv.Atoi(c.Param("id"))
 
 	if connection.DB.Delete(&models.Project{}, Id).RowsAffected == 0 {
