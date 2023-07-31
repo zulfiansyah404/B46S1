@@ -124,6 +124,9 @@
                         </div>
                         <div id="dateHelp" class="form-text text-danger">
                             <!-- The end date cannot precede the start date -->
+                            {{if .DateError}}
+                                {{.DateError}}
+                            {{end}}
                         </div>
                     </div>
                     
@@ -165,7 +168,12 @@
                             </div>
                         </div>
 
-                        <div class="form-text text-danger" id="techHelp"> </div>
+                        <div class="form-text text-danger" id="techHelp">
+                            <!-- You must choose at least one technology -->
+                            {{if .TechError}}
+                                {{.TechError}}
+                            {{end}}
+                        </div>
                     </div>
 
                     <!-- Upload Image -->

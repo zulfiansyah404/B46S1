@@ -26,7 +26,7 @@ func Login(c echo.Context) error {
 	password := c.FormValue("pass")
 
 	// Cari user dengan username yang sama
-	var user models.User
+	var user models.User	
 	if err := connection.DB.Where("username = ?", username).First(&user).Error; err != nil {
 		fmt.Println("Username not found")
 		return RedirectWithMessage(c, "Username not found", false, "/login")
@@ -138,11 +138,11 @@ func RedirectWithMessage(c echo.Context, message string, status bool, redirectPa
 		fmt.Println("Error getting session")
 		return c.JSON(http.StatusInternalServerError, errSess.Error())
 	}
-
+	
 	sess.Values["message"] = message
 	sess.Values["status"] = status
 	sess.Save(c.Request(), c.Response())
-
+	fmt.Println("Sukses get session")
 	// Usahakan returnya dengan method GET
 	
 	return c.Redirect(http.StatusMovedPermanently, redirectPath)

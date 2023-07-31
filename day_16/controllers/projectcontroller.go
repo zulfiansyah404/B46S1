@@ -83,7 +83,7 @@ func AddProject(c echo.Context) error {
 		sess.Values["dateError"] = "Start date must be less than end date"
 		fmt.Println("Redirecting to /project")
 		sess.Save(c.Request(), c.Response())
-		return RedirectWithMessage(c, "Start date must be less than end date", false, "/project")
+		return RedirectWithMessage(c, "Start date must be less than end date", false, "/add-project")
 	}
 
 	// Cek apakah salah satu dari checkbox dipilih
@@ -92,7 +92,7 @@ func AddProject(c echo.Context) error {
 		sess.Values["techError"] = "At least one of the checkbox must be checked"
 		fmt.Println("Redirecting to /project")
 		sess.Save(c.Request(), c.Response())
-		return RedirectWithMessage(c, "At least one of the checkbox must be checked", false, "/project")
+		return RedirectWithMessage(c, "At least one of the checkbox must be checked", false, "/add-project")
 	}
 
 	// Ubah format startdate dan enddate dari string menjadi time.Time
@@ -169,7 +169,7 @@ func EditProject(c echo.Context) error {
 		sess.Values["dateError"] = "Start date must be less than end date"
 		fmt.Println("Redirecting to /project")
 		sess.Save(c.Request(), c.Response())
-		return RedirectWithMessage(c, "Start date must be less than end date", false, "/project")
+		return RedirectWithMessage(c, "Start date must be less than end date", false, "/edit-project/"+strconv.Itoa(id)+"?")
 	}
 
 	// Cek apakah salah satu dari checkbox dipilih
@@ -178,7 +178,7 @@ func EditProject(c echo.Context) error {
 		sess.Values["techError"] = "At least one of the checkbox must be checked"
 		fmt.Println("Redirecting to /project")
 		sess.Save(c.Request(), c.Response())
-		return RedirectWithMessage(c, "At least one of the checkbox must be checked", false, "/project")
+		return RedirectWithMessage(c, "At least one of the checkbox must be checked", false, "/edit-project/"+strconv.Itoa(id)+"?")
 	}
 
 	// Ubah format startdate dan enddate dari string menjadi time.Time

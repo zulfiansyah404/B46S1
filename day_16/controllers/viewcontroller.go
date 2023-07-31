@@ -103,6 +103,10 @@ func LoginView(c echo.Context) error {
 		"User": sess.Values["username"],
 	}
 
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
 	return tmp.Execute(c.Response(), dataResponds)
 }
 
@@ -129,12 +133,17 @@ func RegisterView(c echo.Context) error {
 		"User": sess.Values["username"],
 	}
 
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
 	return tmp.Execute(c.Response(), dataResponds)
 }
 
 // Fungsi menampilkan Menu untuk menambah project
 func AddProjectView(c echo.Context) error {
 	// Pastikan dahulu bahwa user sudah login
+	fmt.Println("Add Project View")
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
@@ -258,6 +267,9 @@ func ProjectDetailView(c echo.Context) error {
 		"User": sess.Values["username"],
 	}
 
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+
 	var tmpl, err = template.ParseFiles("views/project-detail.html")
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
@@ -276,6 +288,7 @@ func EditProjectView(c echo.Context) error {
 	// Pastikan dahulu bahwa user sudah login
 	sess, errSess := session.Get("session", c)
 	if errSess != nil {
+		fmt.Println("Break 1")
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message" : errSess.Error()})
 	}
 
